@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Routes, Route, Outlet } from "react-router-dom";
+import { Navbar, Container } from "react-bootstrap";
+import { Home } from "./components/Home";
+import { Episode } from "./components/Episode";
+import { Podcast } from "./components/Podcast";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/podcast/:podcastId" element={<Podcast />} />
+          <Route path="episode" element={<Episode />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
-export default App;
+function Layout() {
+  return (
+    <>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand href="/">Podcaster 🎧</Navbar.Brand>
+        </Container>
+      </Navbar>
+
+      <Outlet />
+    </>
+  );
+}
